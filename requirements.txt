@@ -1,5 +1,5 @@
 streamlit==1.23.1
-opencv-python-headless==4.7.0.72
+opencv-python==4.7.0.72
 ultralytics==8.2.55
 uuid
 numpy==1.23.5
