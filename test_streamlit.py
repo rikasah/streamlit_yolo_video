@@ -1,8 +1,12 @@
-import cv2
 import os
 import streamlit as st
 from ultralytics import YOLO
 import uuid
+
+try:
+    import cv2
+except ImportError as e:
+    st.error(f"Failed to import OpenCV: {e}")
 
 def app():
     st.header('Object Detection Web App')
@@ -18,8 +22,7 @@ def app():
         st.form_submit_button(label='Submit')
             
     if uploaded_file is not None: 
-        # Generate unique filenames to avoid conflicts
-        unique_id = str(uuid.uuid4().hex)[:8]  # Get first 8 characters of UUID for filename
+        unique_id = str(uuid.uuid4().hex)[:8]  
         input_path = os.path.join(os.getcwd(), f"temp_{unique_id}.mp4")
         output_path = os.path.join(os.getcwd(), f"output_{unique_id}.mp4")
 
@@ -64,7 +67,6 @@ def app():
             video_stream.release()
             out_video.release()
 
-            # Delete temporary files after processing
             if os.path.exists(input_path):
                 os.remove(input_path)
             if os.path.exists(output_path):
